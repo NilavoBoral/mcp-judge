@@ -6,7 +6,7 @@ setup(
     author='Nilavo Boral',
     author_email='nilavoboral@gmail.com',
     description='An interactive application for testing MCP tools.',
-    long_description=open('README.md').read(),
+    long_description = open("README.md", encoding="utf-8").read(),
     long_description_content_type='text/markdown',
     url="https://github.com/NilavoBoral/mcp-judge",
     project_urls={
