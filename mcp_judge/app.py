@@ -114,7 +114,7 @@ with left_col:
             mcp_url = mcp_url.strip() if mcp_url else ""
 
             # --- Optional headers for authentication or custom metadata ---
-            with st.expander("⚙️ Advanced Options (Headers)"):
+            with st.expander("⚙️ Advanced Options (Custom Headers)"):
                 header_name = st.text_input("Header Name (optional)", key="header_name_input", value="Authorization")
                 header_value = st.text_input("Header Value (optional)", key="header_value_input", type="password")
             header_name = header_name.strip() if header_name else None
