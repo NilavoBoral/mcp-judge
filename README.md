@@ -64,9 +64,3 @@ This will automatically start a local server and open the app in your default we
 ### 2. Connected to Custom Test MCP
 
 ![Custom MCP](https://raw.githubusercontent.com/NilavoBoral/mcp-judge/main/screenshot_custom_mcp_v0.1.4.png)
-
----
-
-## 🔗 Project Links
-
-- 📂 [Source Code](https://github.com/NilavoBoral/mcp-judge)
