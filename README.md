@@ -40,8 +40,9 @@ This will automatically start a local server and open the app in your default we
 
 1.  **Enter Server URL:** On the left side of the screen, enter the URL of the MCP server you want to test and click **"Connect"**.
 2.  **Optional Headers:** Click on “⚙️ Advanced Options (Custom Headers)” below the URL input if your MCP tools requires custom headers and header-based access is already configured in your MCP server.
+
 Enter the header name (e.g., Authorization)
-Enter the header value (e.g., Bearer your_api_token)
+  Enter the header value (e.g., Bearer your_api_token)
 3.  **Select a Tool:** Once connected, a list of available tools will appear below. Choose the tool you want to test from the dropdown menu.
 4.  **Provide Inputs:** The right side of the screen will show a form based on the selected tool's required inputs. Fill in the necessary details.
 5.  **Run the Tool:** Click the **"Run Tool"** button to execute the tool. The output will be displayed in the **"Tool Result"** section below.
