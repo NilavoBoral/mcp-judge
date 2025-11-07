@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='mcp-judge',
-    version='0.1.3',
+    version='0.1.4',
     author='Nilavo Boral',
     author_email='nilavoboral@gmail.com',
     description='An interactive application for testing MCP tools.',

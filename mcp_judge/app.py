@@ -1,6 +1,7 @@
 import streamlit as st
 import asyncio
 from fastmcp import Client
+from fastmcp.client.transports import StreamableHttpTransport
 import json
 import re
 
@@ -67,8 +68,16 @@ st.markdown("An interactive application for testing MCP tools.")
 st.divider()
 
 # --- Async Helper Functions ---
-def get_client(url):
-    return Client(url)
+def get_client(url, header_name=None, header_value=None):
+    if header_name and header_value:
+        return Client(
+            transport=StreamableHttpTransport(
+                url, 
+                headers={header_name: header_value},
+            ),
+        )
+    else:
+        return Client(url)
 
 def run_async(coro):
     return asyncio.run(coro)
@@ -103,10 +112,20 @@ with left_col:
             mcp_url = st.text_input("Enter MCP Server URL", help="Enter the URL of your MCP server.", key="url_input")
             # Trim leading/trailing spaces
             mcp_url = mcp_url.strip() if mcp_url else ""
+
+            # --- Optional headers for authentication or custom metadata ---
+            with st.expander("⚙️ Advanced Options (Custom Headers)"):
+                header_name = st.text_input("Header Name (optional)", key="header_name_input", value="Authorization")
+                header_value = st.text_input("Header Value (optional)", key="header_value_input", type="password")
+            header_name = header_name.strip() if header_name else None
+            header_value = header_value.strip() if header_value else None
+
             submit_button = st.form_submit_button(label='Connect')
         
         if submit_button:
             st.session_state.connected_url = mcp_url
+            st.session_state.header_name = header_name
+            st.session_state.header_value = header_value
             # Clear other session state variables when a new URL is submitted
             if 'tools' in st.session_state:
                 del st.session_state['tools']
@@ -122,14 +141,20 @@ with left_col:
         if "connected_url" in st.session_state and st.session_state.connected_url:
             st.subheader("🎯 Tool Selection")
             try:
-                client = get_client(st.session_state.connected_url)
+                st.session_state.client = get_client(
+                    st.session_state.connected_url,
+                    st.session_state.header_name,
+                    st.session_state.header_value
+                )
                 if "tools" not in st.session_state:
                     with st.spinner("Fetching tools..."):
-                        st.session_state.tools = run_async(fetch_tools(client))
+                        st.session_state.tools = run_async(fetch_tools(st.session_state.client))
                 tools = st.session_state.tools
             except Exception as e:
                 st.error(f"❌ Failed to connect to MCP server: {e}")
                 del st.session_state.connected_url # Clear URL on failure
+                del st.session_state.header_name
+                del st.session_state.header_value
                 st.stop()
 
             # Helper to truncate long descriptions
@@ -195,9 +220,14 @@ with right_col:
             if st.button("🚀 Run Tool", use_container_width=True):
                 with st.spinner("Calling tool..."):
                     try:
-                        client = get_client(st.session_state.connected_url)
                         selected_tool_name = tool.name
-                        result = run_async(call_tool(client, selected_tool_name, user_inputs or None))
+                        result = run_async(
+                            call_tool(
+                                st.session_state.client, 
+                                selected_tool_name, 
+                                user_inputs or None
+                            )
+                        )
                         st.session_state.tool_result = result
                         st.session_state.show_result = True
                     except Exception as e:

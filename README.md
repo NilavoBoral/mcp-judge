@@ -9,6 +9,10 @@ An interactive interface for testing your MCP tools. This application helps you 
 * **Dynamic Input Forms:** The app automatically generates input forms based on the tool's `inputSchema`.
 * **Live Tool Testing:** Run any tool with your specified inputs and see the output in real-time.
 
+## 🆕 New Feature
+* **Custom Headers Support:** You can now add custom request headers (like API tokens, authorization keys, or metadata) when connecting to an MCP server.
+This makes it easy to test protected or authenticated MCP tools directly from the interface.
+
 ---
 
 ### 🚀 Installation
@@ -35,9 +39,12 @@ This will automatically start a local server and open the app in your default we
 ### 🛠️ Usage
 
 1.  **Enter Server URL:** On the left side of the screen, enter the URL of the MCP server you want to test and click **"Connect"**.
-2.  **Select a Tool:** Once connected, a list of available tools will appear below. Choose the tool you want to test from the dropdown menu.
-3.  **Provide Inputs:** The right side of the screen will show a form based on the selected tool's required inputs. Fill in the necessary details.
-4.  **Run the Tool:** Click the **"Run Tool"** button to execute the tool. The output will be displayed in the **"Tool Result"** section below.
+2.  **Optional Headers:** Click on “⚙️ Advanced Options (Custom Headers)” below the URL input if your MCP tools requires custom headers and header-based access is already configured in your MCP server.
+    - Enter the header name (e.g., Authorization)
+    - Enter the header value (e.g., Bearer your_api_token)
+3.  **Select a Tool:** Once connected, a list of available tools will appear below. Choose the tool you want to test from the dropdown menu.
+4.  **Provide Inputs:** The right side of the screen will show a form based on the selected tool's required inputs. Fill in the necessary details.
+5.  **Run the Tool:** Click the **"Run Tool"** button to execute the tool. The output will be displayed in the **"Tool Result"** section below.
 
 ---
 
@@ -51,9 +58,9 @@ This will automatically start a local server and open the app in your default we
 
 ### 1. Connected to Microsoft's Sample MCP
 
-![Microsoft MCP](screenshot_microsoft_mcp.png)
+![Microsoft MCP](https://raw.githubusercontent.com/NilavoBoral/mcp-judge/main/screenshot_microsoft_mcp_v0.1.4.png)
 
 
 ### 2. Connected to Custom Test MCP
 
-![Custom MCP](screenshot_custom_mcp.png)
+![Custom MCP](https://raw.githubusercontent.com/NilavoBoral/mcp-judge/main/screenshot_custom_mcp_v0.1.4.png)
